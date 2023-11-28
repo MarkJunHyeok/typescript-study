@@ -1,0 +1,2 @@
+- forceConsistentCasingInFileNames 는 import 시 대소문자를 정확히 명시해야 가능하도록 설정함
+- skipLibCheck 는 우리가 실제로 정의한 타입만 검사하는 설정
