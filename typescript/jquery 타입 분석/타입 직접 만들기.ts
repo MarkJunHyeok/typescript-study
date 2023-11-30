@@ -18,6 +18,6 @@ $tag.text('123')
 $tag.text(123)
 $tag.text(function (this, index) {
     console.log(this, index)
-    return true
+    return 1
 })
 $tag.text().html(document)
