@@ -1,5 +1,8 @@
-export const logIn = (data) => { // async action creator
-    return (dispatch, getState) => { // async action
+import {AnyAction} from "redux";
+import {Dispatch} from "react";
+
+export const logIn = (data: LoginRequestData) => { // async action creator
+    return (dispatch : Dispatch<AnyAction>, getState: () => any) => { // async action
         dispatch(logInRequest(data));
         try {
             setTimeout(() => {
@@ -9,33 +12,49 @@ export const logIn = (data) => { // async action creator
                 }));
             }, 2000);
         } catch (e) {
-            dispatch(logInFailure(e));
+            dispatch(logInFailure(e as LoginFailureError));
         }
     };
 };
 
-const logInRequest = (data) => {
+export type LoginRequestData = {nickname: string, password: string}
+export type LoginRequestAction = {type: 'LOG_IN_REQUEST', data: LoginRequestData}
+const logInRequest = (data: LoginRequestData) : LoginRequestAction => {
     return {
         type: 'LOG_IN_REQUEST',
         data,
     }
 };
 
-const logInSuccess = (data) => {
+export type LoginSuccessData = {userId: number, nickname: string}
+export type LoginSuccessAction = {
+    type: 'LOG_IN_SUCCESS',
+    data: LoginSuccessData
+}
+const logInSuccess = (data: LoginSuccessData) : LoginSuccessAction => {
     return {
         type: 'LOG_IN_SUCCESS',
         data,
     }
 };
 
-const logInFailure = (error) => {
+export type LoginFailureError = {message: string}
+export type LoginFailureAction = {
+    type: 'LOG_IN_FAILURE',
+    error: LoginFailureError
+}
+const logInFailure = (error: LoginFailureError): LoginFailureAction => {
     return {
         type: 'LOG_IN_FAILURE',
         error,
     }
 };
 
-export const logOut = () => {
+
+export type LogOutAction = {
+    type: 'LOG_OUT'
+}
+export const logOut = () : LogOutAction => {
     return { // action
         type: 'LOG_OUT',
     };
